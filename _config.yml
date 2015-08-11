@@ -1,13 +1,13 @@
 # Site settings
-title: Clean Blog
+title: Claíomh Solais
 header-img: img/home-bg.jpg
-email: your-email@yourdomain.com
+email: solais.info@gmail.com
 description: "Write your site description here. It will be used as your sites meta description as well!"
-baseurl: "/startbootstrap-clean-blog-jekyll"
-url: "http://yourdomain.com"
-twitter_username: SBootstrap
-github_username:  davidtmiller
-facebook_username:  IronSummitMedia
+baseurl: ""
+url: "http://claiomhsolais.jp"
+twitter_username: ibukiyui0614
+#github_username:  claionhsolais
+#facebook_username:  IronSummitMedia
 
 # Build settings
 markdown: kramdown
