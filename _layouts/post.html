@@ -2,49 +2,59 @@
 layout: default
 ---
 
-<!-- Post Header -->
-<header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <h1>{{ page.title }}</h1>
-                    {% if page.subtitle %}
-                    <h2 class="subheading">{{ page.subtitle }}</h2>
-                    {% endif %}
-                    <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }}</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-
-				{{ content }}
-
-                <hr>
-
-                <ul class="pager">
-                    {% if page.previous.url %}
-                    <li class="previous">
-                        <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">&larr; Previous Post</a>
-                    </li>
-                    {% endif %}
-                    {% if page.next.url %}
-                    <li class="next">
-                        <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">Next Post &rarr;</a>
-                    </li>
-                    {% endif %}
-                </ul>
-
-            </div>
-        </div>
-    </div>
-</article>
-
-<hr>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "MusicEvent",
+  "name": {{ post.title }},
+  "startDate" : {{ post.date | date_to_xmlschema }},
+  "url" : {{ post.url }}
+  "location" : {
+    "@type" : "MusicVenue",
+    "sameAs" : {{ post.place_url }},
+    "name" : {{ post.place_name }},
+    "address" : {{ post.place_address }},
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": {{ post.ticket_url }},
+    "price": {{ post.price }},
+    "priceCurrency": "JPY",
+    "availability": {{ post.availability }},
+  },
+  "performer": [
+    {
+      "@type": "MusicGroup",
+      "name": {{ site.title }},
+      "sameAs": [
+          {{ site.url }},
+          {{ site.blog }}
+      ]
+    },
+    {
+      "@type": "Person",
+      "image": {{ twitter_picture}},
+      "name":  {{ twitter_name }},
+      "sameAs": "https://twitter.com/{{ site.twitter_username }}"
+    },
+    {
+      "@type": "Person",
+      "image": {{ twitter2_picture}},
+      "name":  {{ twitter2_name }},
+      "sameAs": "https://twitter.com/{{ site.twitter2_username }}"
+    }
+  ],
+  //"workPerformed": [
+  //  {
+  //    "@type": "CreativeWork",
+  //    "name": "Britten Four Sea Interludes and Passacaglia from Peter Grimes",
+  //    "sameAs": "http://en.wikipedia.org/wiki/Peter_Grimes"
+  //  },
+  //  {
+  //    "@type": "CreativeWork",
+  //    "name": "Shostakovich Symphony No. 7 (Leningrad)",
+  //    "sameAs": "http://en.wikipedia.org/wiki/Symphony_No._7_(Shostakovich)"
+  //  }
+  //]
+}
+</script>
