@@ -6,40 +6,7 @@ description: "YuiとJunの女性ユニットです"
 {% for event_hash in site.data.events %}
 {% assign event = event_hash[1] %}
 
-<div class="event-preview">
-    <h2 class="event-title">
-        <a href="{{ site.blog }}{{ event.url }}">{{ event.title }}</a>
-    </h2>
-    {% if event.date %}
-        <h3 class="event.date">
-            {{ event.date | date: "%B %-d, %Y" }}
-        </h3>
-    {% endif %}
-    <p>
-        Performed by {{ event.artists }}
-        {% if event.director %}
-        , directed by {{ event.director }}
-        {% endif %}
-    </p>
-    {% for work in event.works %}
-      <h3>{{ work.title }}</h3>
-      <p>Composed by {{ work.composer }}</p>
-      <ul>
-          {% for track in work.tracks %}
-          <li>{{ track.title }} ({{ track.duration }})</li>
-          {% endfor %}
-      </ul>
-    {% endfor %}
-    <p class="event-meta">
-        Posted by
-        {% if event.author %}
-            {{ event.author }}
-        {% else %}
-            {{ site.title }}
-        {% endif %}
-        on {{ event.published | date: "%B %-d, %Y" }}
-    </p>
-</div>
+{% include event.html event=event %}
 
 <hr>
 {% endfor %}

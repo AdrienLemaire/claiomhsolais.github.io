@@ -5,14 +5,15 @@ date: "2015-10-12 12:30:00"
 artists: "Yui Ibuki & Jun Kadotani"
 #director:
 ticket:
-  - value: "3500"
-  - currency: "JPY"
-  - url: "http://www.otonami.com/comfort/news/"
-  - availability: "http://schema.org/InStock"
-place:
-  - name: "四谷天窓"
-  - address: "〒169-0075 東京都新宿区高田馬場 3-4-11 BaBa hatch 5F"
-  - url: "http://www.otonami.com/comfort/news/"
+  price: "3500"
+  currency: "JPY"
+  currency_sign: '円'
+  url: "http://www.otonami.com/comfort/news/"
+  availability: true
+location:
+  name: "四谷天窓"
+  address: "〒169-0075 東京都新宿区高田馬場 3-4-11 BaBa hatch 5F"
+  url: "http://www.otonami.com/comfort/news/"
 works:
   - title: "Missa De beata virgine"
     composer: "Josquin des Prez"

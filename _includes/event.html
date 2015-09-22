@@ -1,0 +1,98 @@
+<div class="event-preview">
+    <h2 class="event-title">
+        <a href="{{ site.blog }}{{ include.event.url }}">{{ include.event.title }}</a>
+    </h2>
+    {% if event.date %}
+        <h3 class="include.event.date">
+            {{ include.event.date | date: "%B %-d, %Y" }}
+        </h3>
+    {% endif %}
+    <p>
+        Performed by {{ include.event.artists }}
+        {% if include.event.director %}
+        , directed by {{ include.event.director }}
+        {% endif %}
+    </p>
+    {% if include.event.ticket.availability %}
+    <p>値段： {{ include.event.ticket.price }}{{ include.event.ticket.currency_sign }}
+    {% endif %}
+    </p>
+    
+    {% for work in include.event.works %}
+      <h3>{{ work.title }}</h3>
+      <p>Composed by {{ work.composer }}</p>
+      <ul>
+          {% for track in work.tracks %}
+          <li>{{ track.title }} ({{ track.duration }})</li>
+          {% endfor %}
+      </ul>
+    {% endfor %}
+    <p class="event-meta">
+        Posted by
+        {% if include.event.author %}
+            {{ include.event.author }}
+        {% else %}
+            {{ site.title }}
+        {% endif %}
+        on {{ include.event.published | date: "%B %-d, %Y" }}
+    </p>
+    {% if include.event.location %}
+    <img src="http://maps.googleapis.com/maps/api/staticmap?markers=color:blue%7C{{ include.event.location.address }}&center={{ include.event.location.address }}&zoom={% if page.zoom %}{{page.zoom}}{% else %}15{% endif %}&size=300x200&scale=2&sensor=false&visual_refresh=true" alt="" />
+    {% endif %}
+</div>
+
+<hr>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "MusicEvent",
+  "name": "{{ event.title }}",
+  "startDate" : "{{ event.published | date_to_xmlschema }}",
+  "url" : "{{ event.url }}"
+  "location" : {
+    "@type" : "MusicVenue",
+    "sameAs" : "{{ event.location.url }}",
+    "name" : "{{ event.location.name }}",
+    "address" : "{{ event.location.address }}",
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "{{ event.ticket.url }}",
+    "price": "{{ event.ticket.price }}",
+    "priceCurrency": "{{ event.ticket.currency }}",
+    "availability": {% if event.ticket.availability %}"http://schema.org/InStock"{% else %}"http://schema.org/SoldOut"{% endif %}
+  },
+  "performer": [
+    {
+      "@type": "MusicGroup",
+      "name": "{{ site.title }}",
+      "sameAs": [
+          "{{ site.url }}",
+          "{{ site.blog }}"
+      ]
+    },
+    {
+      "@type": "Person",
+      "image": "{{ site.url }}{{ twitter_picture }}",
+      "name":  "{{ site.twitter_name }}",
+      "sameAs": "https://twitter.com/{{ site.twitter_username }}"
+    },
+    {
+      "@type": "Person",
+      "image": "{{ site.url }}{{ twitter2_picture }}",
+      "name":  "{{ site.twitter2_name }}",
+      "sameAs": "https://twitter.com/{{ site.twitter2_username }}"
+    }
+  ],
+  "workPerformed": [
+  {% for work in include.event.works %}
+    {
+      "@type": "CreativeWork",
+      "name": "{{ work.title }}",
+      //"sameAs": "http://en.wikipedia.org/wiki/Peter_Grimes"-->
+    },
+  {% endfor %}
+  ]
+}
+</script>
