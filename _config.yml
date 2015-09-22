@@ -27,11 +27,11 @@ exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
 collections:
   events:
     output: true
-    permalink: /event/:path/
+    #permalink: /event/:path/
 
-defaults:
-  - scope:
-      path: ""
-      type: events
-    values:
-      layout: event
+#defaults:
+  #- scope:
+      #path: ""
+      #type: events
+    #values:
+      #layout: event
