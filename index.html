@@ -3,19 +3,19 @@ layout: page
 description: "YuiとJunの女性ユニットです"
 ---
 
-{% for post in paginator.posts %}
-<div class="post-preview">
-    <h2 class="post-title">
-        {{ post.title }}
+{% for event in site.events %}
+<div class="event-preview">
+    <h2 class="event-title">
+        {{ event.title }}
     </h2>
-    {% if post.published %}
-    <h3 class="post-subtitle">
-        {{ post.published | date: "%B %-d, %Y" }}
+    {% if event.published %}
+    <h3 class="event-subtitle">
+        {{ event.published | date: "%B %-d, %Y" }}
     </h3>
     {% endif %}
-    {{ post.content }}
+    {{ event.content }}
     {% comment %}
-    <p class="post-meta">Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}</p>
+    <p class="event-meta">Posted by {% if event.author %}{{ event.author }}{% else %}{{ site.title }}{% endif %} on {{ event.date | date: "%B %-d, %Y" }}</p>
     {% endcomment %}
 </div>
 <hr>

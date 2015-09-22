@@ -1229,7 +1229,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 				rbuggyQSA.push( ":enabled", ":disabled" );
 			}
 
-			// Opera 10-11 does not throw on post-comma invalid pseudos
+			// Opera 10-11 does not throw on event-comma invalid pseudos
 			div.querySelectorAll("*,:x");
 			rbuggyQSA.push(",.*:");
 		});
@@ -2179,17 +2179,17 @@ function condense( unmatched, map, filter, context, xml ) {
 	return newUnmatched;
 }
 
-function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postSelector ) {
-	if ( postFilter && !postFilter[ expando ] ) {
-		postFilter = setMatcher( postFilter );
+function setMatcher( preFilter, selector, matcher, eventFilter, eventFinder, eventSelector ) {
+	if ( eventFilter && !eventFilter[ expando ] ) {
+		eventFilter = setMatcher( eventFilter );
 	}
-	if ( postFinder && !postFinder[ expando ] ) {
-		postFinder = setMatcher( postFinder, postSelector );
+	if ( eventFinder && !eventFinder[ expando ] ) {
+		eventFinder = setMatcher( eventFinder, eventSelector );
 	}
 	return markFunction(function( seed, results, context, xml ) {
 		var temp, i, elem,
 			preMap = [],
-			postMap = [],
+			eventMap = [],
 			preexisting = results.length,
 
 			// Get initial elements from seed or context
@@ -2201,8 +2201,8 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 				elems,
 
 			matcherOut = matcher ?
-				// If we have a postFinder, or filtered seed, or non-seed postFilter or preexisting results,
-				postFinder || ( seed ? preFilter : preexisting || postFilter ) ?
+				// If we have a eventFinder, or filtered seed, or non-seed eventFilter or preexisting results,
+				eventFinder || ( seed ? preFilter : preexisting || eventFilter ) ?
 
 					// ...intermediate processing is necessary
 					[] :
@@ -2216,24 +2216,24 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 			matcher( matcherIn, matcherOut, context, xml );
 		}
 
-		// Apply postFilter
-		if ( postFilter ) {
-			temp = condense( matcherOut, postMap );
-			postFilter( temp, [], context, xml );
+		// Apply eventFilter
+		if ( eventFilter ) {
+			temp = condense( matcherOut, eventMap );
+			eventFilter( temp, [], context, xml );
 
 			// Un-match failing elements by moving them back to matcherIn
 			i = temp.length;
 			while ( i-- ) {
 				if ( (elem = temp[i]) ) {
-					matcherOut[ postMap[i] ] = !(matcherIn[ postMap[i] ] = elem);
+					matcherOut[ eventMap[i] ] = !(matcherIn[ eventMap[i] ] = elem);
 				}
 			}
 		}
 
 		if ( seed ) {
-			if ( postFinder || preFilter ) {
-				if ( postFinder ) {
-					// Get the final matcherOut by condensing this intermediate into postFinder contexts
+			if ( eventFinder || preFilter ) {
+				if ( eventFinder ) {
+					// Get the final matcherOut by condensing this intermediate into eventFinder contexts
 					temp = [];
 					i = matcherOut.length;
 					while ( i-- ) {
@@ -2242,29 +2242,29 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 							temp.push( (matcherIn[i] = elem) );
 						}
 					}
-					postFinder( null, (matcherOut = []), temp, xml );
+					eventFinder( null, (matcherOut = []), temp, xml );
 				}
 
 				// Move matched elements from seed to results to keep them synchronized
 				i = matcherOut.length;
 				while ( i-- ) {
 					if ( (elem = matcherOut[i]) &&
-						(temp = postFinder ? indexOf( seed, elem ) : preMap[i]) > -1 ) {
+						(temp = eventFinder ? indexOf( seed, elem ) : preMap[i]) > -1 ) {
 
 						seed[temp] = !(results[temp] = elem);
 					}
 				}
 			}
 
-		// Add elements to results, through postFinder if defined
+		// Add elements to results, through eventFinder if defined
 		} else {
 			matcherOut = condense(
 				matcherOut === results ?
 					matcherOut.splice( preexisting, matcherOut.length ) :
 					matcherOut
 			);
-			if ( postFinder ) {
-				postFinder( null, results, matcherOut, xml );
+			if ( eventFinder ) {
+				eventFinder( null, results, matcherOut, xml );
 			} else {
 				push.apply( results, matcherOut );
 			}
@@ -4439,9 +4439,9 @@ jQuery.event = {
 			}
 		}
 
-		// Call the postDispatch hook for the mapped type
-		if ( special.postDispatch ) {
-			special.postDispatch.call( this, event );
+		// Call the eventDispatch hook for the mapped type
+		if ( special.eventDispatch ) {
+			special.eventDispatch.call( this, event );
 		}
 
 		return event.result;
@@ -4619,7 +4619,7 @@ jQuery.event = {
 		},
 
 		beforeunload: {
-			postDispatch: function( event ) {
+			eventDispatch: function( event ) {
 
 				// Support: Firefox 20+
 				// Firefox doesn't alert if the returnValue field is not set.
@@ -8294,7 +8294,7 @@ jQuery.extend({
 	}
 });
 
-jQuery.each( [ "get", "post" ], function( i, method ) {
+jQuery.each( [ "get", "event" ], function( i, method ) {
 	jQuery[ method ] = function( url, data, callback, type ) {
 		// Shift arguments if data argument was omitted
 		if ( jQuery.isFunction( data ) ) {

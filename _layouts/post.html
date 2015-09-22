@@ -2,18 +2,18 @@
 layout: default
 ---
 
-<div class="post-preview">
-    <h2 class="post-title">
-        {{ post.title }}
+<div class="event-preview">
+    <h2 class="event-title">
+        {{ event.title }}
     </h2>
-    {% if post.published %}
-    <h3 class="post-subtitle">
-        {{ post.published | date: "%B %-d, %Y" }}
+    {% if event.published %}
+    <h3 class="event-subtitle">
+        {{ event.published | date: "%B %-d, %Y" }}
     </h3>
     {% endif %}
-    {{ post.content }}
+    {{ event.content }}
     {% comment %}
-    <p class="post-meta">Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}</p>
+    <p class="event-meta">Posted by {% if event.author %}{{ event.author }}{% else %}{{ site.title }}{% endif %} on {{ event.date | date: "%B %-d, %Y" }}</p>
     {% endcomment %}
 </div>
 <hr>
@@ -22,21 +22,21 @@ layout: default
 {
   "@context": "http://schema.org",
   "@type": "MusicEvent",
-  "name": {{ post.title }},
-  "startDate" : {{ post.published | date_to_xmlschema }},
-  "url" : {{ post.url }}
+  "name": {{ event.title }},
+  "startDate" : {{ event.published | date_to_xmlschema }},
+  "url" : {{ event.url }}
   "location" : {
     "@type" : "MusicVenue",
-    "sameAs" : {{ post.place_url }},
-    "name" : {{ post.place_name }},
-    "address" : {{ post.place_address }},
+    "sameAs" : {{ event.place_url }},
+    "name" : {{ event.place_name }},
+    "address" : {{ event.place_address }},
   },
   "offers": {
     "@type": "Offer",
-    "url": {{ post.ticket_url }},
-    "price": {{ post.price }},
+    "url": {{ event.ticket_url }},
+    "price": {{ event.price }},
     "priceCurrency": "JPY",
-    "availability": {{ post.availability }},
+    "availability": {{ event.availability }},
   },
   "performer": [
     {
