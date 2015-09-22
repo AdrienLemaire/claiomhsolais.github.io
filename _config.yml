@@ -23,3 +23,15 @@ highlighter: pygments
 permalink: pretty
 paginate: 5
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+
+collections:
+  events:
+    output: true
+    permalink: /event/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: events
+    values:
+      layout: event

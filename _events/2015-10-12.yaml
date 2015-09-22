@@ -1,0 +1,26 @@
+title:          "本日18時から予約開始です。"
+url:            "{{ site.blog }}entry-12073792391.html"
+published:           "2015-10-12 12:30:00"
+ticket:
+  - value: "3500"
+  - currency: "JPY"
+  - url:      "http://www.otonami.com/comfort/news/"
+  - availability:   "http://schema.org/InStock"
+place:
+  - name: "四谷天窓"
+  - address:  "〒169-0075 東京都新宿区高田馬場 3-4-11 BaBa hatch 5F"
+  - url:     "http://www.otonami.com/comfort/news/"
+works:
+  - title: "Missa De beata virgine"
+    composer: "Josquin des Prez"
+    tracks:
+      - title: "Kyrie"
+        duration: "4:25"
+      - title: "Gloria"
+        duration: "9:53"
+      - title: "Credo"
+        duration: "9:09"
+      - title: "Sanctus & Benedictus"
+        duration: "7:47"
+      - title: "Agnus Dei I, II & III"
+        duration: "6:49"

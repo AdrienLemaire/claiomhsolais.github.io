@@ -8,12 +8,22 @@ description: "YuiとJunの女性ユニットです"
     <h2 class="event-title">
         {{ event.title }}
     </h2>
+    <p>Performed by {{ event.artist }}{% if event.director %},
+    directed by {{ event.director }}{% endif %}</p>
     {% if event.published %}
     <h3 class="event-subtitle">
         {{ event.published | date: "%B %-d, %Y" }}
     </h3>
     {% endif %}
-    {{ event.content }}
+    {% for work in event.works %}
+      <h3>{{ work.title }}</h3>
+      <p>Composed by {{ work.composer }}</p>
+      <ul>
+      {% for track in work.tracks %}
+        <li>{{ track.title }} ({{ track.duration }})</li>
+      {% endfor %}
+      </ul>
+    {% endfor %}
     {% comment %}
     <p class="event-meta">Posted by {% if event.author %}{{ event.author }}{% else %}{{ site.title }}{% endif %} on {{ event.date | date: "%B %-d, %Y" }}</p>
     {% endcomment %}
